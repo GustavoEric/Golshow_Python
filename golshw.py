@@ -3,6 +3,7 @@ import main as valor
 from tkinter import *
 from tkinter import ttk
 #Cores
+#Comentario
 
 
 while respondeu==False:
