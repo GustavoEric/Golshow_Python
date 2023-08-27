@@ -1,7 +1,7 @@
 import pyodbc
 def conectar():
     con = pyodbc.connect('Driver={SQL Server};'
-                        'Server=LAPTOP-U4RSB0D7\SQLEXPRESS;'
+                        'Server=GUSTAVO_DESKTOP;'
                         'Database=dbGolshow;'
                         'Trusted_Connection=yes;')
     return con
