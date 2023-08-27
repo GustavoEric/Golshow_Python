@@ -9,4 +9,3 @@ from tkinter import ttk
 while respondeu==False:
     print(valor)
 print(valor)
-print('ola')
