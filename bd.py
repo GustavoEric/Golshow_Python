@@ -6,6 +6,7 @@ def conectar():
                         'Trusted_Connection=yes;')
     return con
 def consultar_pergunta(cod):
+    Per = []
     x = cursor.execute(f"SELECT * FROM tbPergunta WHERE codPergunta ={cod}")
     for linha in x:
         Per = linha[1]
