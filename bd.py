@@ -5,13 +5,14 @@ def conectar():
                         'Database=dbGolshow;'
                         'Trusted_Connection=yes;')
     return con
-def consultar_pergunta(cod):
+async def consultar_pergunta(cod):
     Per = []
     x = cursor.execute(f"SELECT * FROM tbPergunta WHERE codPergunta ={cod}")
     for linha in x:
         Per = linha[1]
     return Per
-def consultar_alt(cod):
+async def consultar_alt(cod):
+    cursor.close
     x = cursor.execute(f"SELECT * FROM tbAlternativa WHERE codPergunta ={cod}")
     alternativas = []
     verdadeiras = []

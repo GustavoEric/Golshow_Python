@@ -1,6 +1,7 @@
 import bd as bd
 from tkinter import *
 from tkinter import ttk
+import asyncio
 import random
 
 co0 = "#444466"
@@ -13,6 +14,7 @@ janela = Frame(tela,width=550,height=600,relief='flat')
 janela.grid(row=2,column=0)
 pontos=0
 perguntas = []
+alts = []
 
 def ranking(pontos,jogador):
     cadastrar = bd.cadastrar_pontos(pontos,jogador)
@@ -46,26 +48,34 @@ def resposta(value):
         print('ERROOOU')
         randomizar()
     print(valor)
-
-def inicio(cod,tela):
+async def inicio(cod,tela):
     frame_inicio = Frame(tela,width=550,height=100,relief='flat')
     frame_inicio.grid(row=1,column=0)
     lbl1 = ttk.Label(frame_inicio,text='Gol Show',relief='flat',anchor=CENTER,font=('Fixedsys 20'))
     lbl1.place(x=200,y=5)
-    alternativas = bd.consultar_alt(cod)
-    pergunta = bd.consultar_pergunta(cod)
+    alternativas = await bd.consultar_alt(cod)
+    pergunta = await bd.consultar_pergunta(cod)
     lblpontos['text'] = pontos
     lbl2['text'] = pergunta
-    btn1['text'] = alternativas[0][0]
-    btn1['command'] = lambda:resposta(alternativas[1][0])
-    btn2['text'] = alternativas[0][1]
-    btn2['command'] = lambda:resposta(alternativas[1][1])
-    btn3['text'] = alternativas[0][2]
-    btn3['command'] = lambda:resposta(alternativas[1][2])
-    btn4['text'] = alternativas[0][3]
-    btn4['command'] = lambda:resposta(alternativas[1][3])
-    btn5['text'] = alternativas[0][4]
-    btn5['command'] = lambda:resposta(alternativas[1][4])
+    cod = random.randint(1,4)
+    global alts
+    #perguntas[2]
+    alt = random.randint(0,4)
+    #cod =2
+    while len(alts) <5 :
+        while alt in alts:
+            alt = random.randint(0,4)
+        alts.append(alt)
+    btn1['text'] = alternativas[0][alts[0]]
+    btn1['command'] = lambda:resposta(alternativas[1][alts[0]])
+    btn2['text'] = alternativas[0][alts[1]]
+    btn2['command'] = lambda:resposta(alternativas[1][alts[1]])
+    btn3['text'] = alternativas[0][alts[2]]
+    btn3['command'] = lambda:resposta(alternativas[1][alts[2]])
+    btn4['text'] = alternativas[0][alts[3]]
+    btn4['command'] = lambda:resposta(alternativas[1][alts[3]])
+    btn5['text'] = alternativas[0][alts[4]]
+    btn5['command'] = lambda:resposta(alternativas[1][alts[4]])
     print(pergunta)
 lbl2 = ttk.Label(janela,relief='flat',anchor=CENTER,font=('Fixedsys 10'))
 lbl2.place(x=10,y=100)
@@ -84,15 +94,20 @@ btn4.place(x=400,y=250)
 btn5 = ttk.Button(janela)
 btn5.place(x=400,y=300)
 cod = random.randint(1,10)
-inicio(cod,tela)
+asyncio.run(inicio(cod,tela))
 def randomizar ():
     global pontos
     global perguntas
+    alts.clear()
+    #perguntas[2]
     cod = random.randint(1,10)
-    if len(perguntas) <=5 :
-        if cod not in perguntas:
-            perguntas.append(cod)
-            inicio(cod,tela)
+    #cod =2
+    if len(perguntas) <5 :
+        while cod in perguntas:
+            cod = random.randint(1,5)
+        perguntas.append(cod)
+            #perguntas[2]
+        asyncio.run(inicio(cod,tela))
     else:
         print('acabou')
         ranking(4000000,'Gustavo Teste')
