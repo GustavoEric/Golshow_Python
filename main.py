@@ -48,13 +48,13 @@ def resposta(value):
         print('ERROOOU')
         randomizar()
     print(valor)
-async def inicio(cod,tela):
+def inicio(cod,tela):
     frame_inicio = Frame(tela,width=550,height=100,relief='flat')
     frame_inicio.grid(row=1,column=0)
     lbl1 = ttk.Label(frame_inicio,text='Gol Show',relief='flat',anchor=CENTER,font=('Fixedsys 20'))
     lbl1.place(x=200,y=5)
-    alternativas = await bd.consultar_alt(cod)
-    pergunta = await bd.consultar_pergunta(cod)
+    alternativas = bd.consultar_alt(cod)
+    pergunta = bd.consultar_pergunta(cod)
     lblpontos['text'] = pontos
     lbl2['text'] = pergunta
     cod = random.randint(1,4)
@@ -93,22 +93,23 @@ btn4 = ttk.Button(janela)
 btn4.place(x=400,y=250)
 btn5 = ttk.Button(janela)
 btn5.place(x=400,y=300)
-cod = random.randint(1,10)
-asyncio.run(inicio(cod,tela))
+cod = random.randint(1,5)
+perguntas.append(cod)
+inicio(cod,tela)
 def randomizar ():
     global pontos
     global perguntas
     alts.clear()
     #perguntas[2]
-    cod = random.randint(1,10)
     #cod =2
     if len(perguntas) <5 :
+        cod = random.randint(1,5)
         while cod in perguntas:
             cod = random.randint(1,5)
         perguntas.append(cod)
             #perguntas[2]
-        asyncio.run(inicio(cod,tela))
+        inicio(cod,tela)
     else:
         print('acabou')
-        ranking(4000000,'Gustavo Teste')
+        ranking(pontos,'Gustavo Teste')
 tela.mainloop()

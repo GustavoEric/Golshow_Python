@@ -1,17 +1,18 @@
 import pyodbc
+import asyncio
 def conectar():
     con = pyodbc.connect('Driver={SQL Server};'
                         'Server=GUSTAVO_DESKTOP;'
                         'Database=dbGolshow;'
                         'Trusted_Connection=yes;')
     return con
-async def consultar_pergunta(cod):
+def consultar_pergunta(cod):
     Per = []
     x = cursor.execute(f"SELECT * FROM tbPergunta WHERE codPergunta ={cod}")
     for linha in x:
         Per = linha[1]
     return Per
-async def consultar_alt(cod):
+def consultar_alt(cod):
     cursor.close
     x = cursor.execute(f"SELECT * FROM tbAlternativa WHERE codPergunta ={cod}")
     alternativas = []
