@@ -1,8 +1,9 @@
 import bd as bd
 from tkinter import *
 from tkinter import ttk
-import asyncio
 import random
+from tkinter.simpledialog import askstring
+from tkinter.messagebox import showinfo
 
 co0 = "#444466"
 
@@ -25,7 +26,6 @@ perguntas = []
 alts = []
 
 def ranking(pontos,jogador):
-    global tela3
     tela.destroy()
     tela2 = Tk()
     tela2.title('Gol Show')
@@ -113,6 +113,7 @@ perguntas.append(cod)
 inicio(cod,tela)
 def printInput(nome):
     global pontos
+    print(nome)
     ranking(pontos,nome)
 def randomizar ():
     global pontos
@@ -135,9 +136,8 @@ def randomizar ():
         tela3.attributes('-fullscreen',True)
         tela3.config(bg=co0)
         print('acabou')
-        inputtxt = ttk.Entry(tela3)
-        inputtxt.pack()
-        printButton = ttk.Button(tela3,text = "Print", command = printInput(inputtxt.get()))
-        printButton.pack()
+        nome = askstring('Name', 'Digite seu Nome:')
+        ranking(pontos,nome)
+        tela3.destroy()
         tela3.mainloop()
 tela.mainloop()
