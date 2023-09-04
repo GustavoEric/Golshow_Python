@@ -1,5 +1,4 @@
 import pyodbc
-import asyncio
 def conectar():
     con = pyodbc.connect('Driver={SQL Server};'
                         'Server=GUSTAVO_DESKTOP;'
